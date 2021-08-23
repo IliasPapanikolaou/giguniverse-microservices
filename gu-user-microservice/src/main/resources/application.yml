@@ -1,0 +1,142 @@
+## Server Port ##
+server:
+  port: 8080
+## Spring Configuration ##
+spring:
+  application:
+    name: gu-user-microservice
+  ## Database Properties ##
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/giguniverse?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+    password: password
+    initialization-mode: always
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  ## Mail Properties ##
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: 859a101755d7f0
+    password: faff33b585edcd
+    protocol: smtp
+## JWT Properties ##
+jwt.expiration.time: 9000000 # 150 minutes - 2.5 hours
+## Google Client ID ##
+google:
+  ClientId: 1057431090287-akq0f9pej05op16rfo9n2ehml8sddps5.apps.googleusercontent.com
+##spring.cloud.gateway.discovery.locator.lower-case-service-id=true
+##spring.cloud.gateway.discovery.locator.enabled=true
+
+## Actuator Configuration
+## "management.endpoints.web.exposure.include=*" not for production
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+    diskspace:
+      enabled: false
+    ratelimiters:
+      enabled: false
+  metrics:
+    tags:
+     application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            request: true
+        resilience4j:
+          circuitbreaker:
+            call: true
+
+## Resilience4j Configuration ##
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowType: COUNT_BASED # (default COUNT_BASED)
+      # if COUNT_BASED then, the number of recorded calls to be considered, else if it is TIME_BASED, then, the seconds
+      # Configures the size of the sliding window which is used to record the outcome of calls when the CircuitBreaker is closed.
+      slidingWindowSize: 100 # (default 100)
+      minimumNumberOfCalls: 5 # Ring Bit Buffer method to calculate state machine behavior (default 100)
+      permittedNumberOfCallsInHalfOpenState: 3 # Ring Bit Buffer method to calculate state machine behavior (default 10)
+      automaticTransitionFromOpenToHalfOpenEnabled: true # (default false)
+      waitDurationInOpenState: 5s # Remain in open state duration (default 60000 ms)
+      failureRateThreshold: 50 # (default 50%)
+      slowCallDurationThreshold: 5s # (default 60000 ms)
+      slowCallRateThreashold: 50 # (default 100%)
+      eventConsumerBufferSize: 10
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.util.concurrent.TimeoutException
+        - java.io.IOException
+        - org.springframework.web.reactive.function.client.WebClientResponseException
+
+  instances:
+    VenueMicroservice: # Service name
+      baseConfig: default
+    ConcertMicroservice:  # Service name
+      baseConfig: default
+    TicketMicroservice: # Service name
+      baseConfig: default
+
+## Time Limiter Configuration
+resilience4j.timelimiter:
+  configs:
+    default:
+      cancelRunningFuture: false
+      timeoutDuration: 2s
+  instances:
+    VenueMicroservice:  # Service name
+      baseConfig: default
+    ConcertMicroservice: # Service name
+      baseConfig: default
+    TicketMicroservice: # Service name
+      baseConfig: default
+
+## Retry Configuration
+resilience4j.retry:
+  configs:
+    default:
+      maxAttempts: 3 # max number of retry attempts (default 3)
+      waitDuration: 500ms # wait time between attempts (default 500ms)
+  instances:
+    VenueMicroservice:  # Service name
+      baseConfig: default
+    ConcertMicroservice:  # Service name
+      baseConfig: default
+    TicketMicroservice: # Service name
+      baseConfig: default
+
+## RateLimiter Configuration
+resilience4j.ratelimiter:
+  configs:
+    default:
+      registerHealthIndicator: false
+      limitForPeriod: 50 # How many requests to allow in the limitRefreshPeriod. (default 50)
+      limitRefreshPeriod: 500ns # Reset the limitForPeriod after: Duration (default 500ns)
+      timeoutDuration: 5s # The default wait time a thread waits for a permission (default 5s)
+  instances:
+    VenueMicroservice:  # Service name
+      backendService: default
+    ConcertMicroservice:  # Service name
+      backendService: default
+    TicketMicroservice: # Service name
+      baseConfig: default

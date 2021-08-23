@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">GigUniverse Reschedule Email Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        a[x-apple-data-detectors] {color: inherit !important;}
+    </style>
+</head>
+<body style="margin: 0; padding: 0;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+       style="color: #153643; font-family: Arial, sans-serif;">
+    <tr>
+        <td colspan="3" align="center" bgcolor="#70bbd9" style="padding: 20px 10px 20px 10px;">
+            <img src="logo.png" th:src="@{'data:image/png;base64,'+${logo}}" alt="GWigUniverse"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 5px 0 5px 0;">
+                        <p><h3>Αλλαγή προγραμματισμού συναυλίας</h3></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <p><b>Όνομα:</b>
+                            <span th:text = "${name}">name</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <p><b>Email:</b>
+                            <span th:text = "${email}">email</span>
+                        </p>
+                    </td>
+                </tr>
+<!--                <tr>-->
+<!--                    <td style="padding: 1px 0 1px 0;">-->
+<!--                        <p><b>Τηλέφωνο:</b>-->
+<!--                            <span th:text = "${phone}">phone</span>-->
+<!--                        <p/>-->
+<!--                    </td>-->
+<!--                </tr>-->
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <p><b>Συναυλία:</b>
+                            <span th:text = "${concert}">concert</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <p><b>Ημ/νία:</b>
+                            <span th:text = "${#dates.format(concertDate)}">concertDate</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <p><b>Τιμή εισιτηρίου:</b>
+                            <span th:text = "${#numbers.formatDecimal(price, 0, 'COMMA', 2, 'POINT')}">price</span>&nbsp€</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <p><b>Ημ/νία Αγοράς:</b>
+                            <span th:text = "${#dates.format(purchaseDate)}">purchaseDate</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <img th:src="@{'data:image/png;base64,'+${qrString}}" alt="QR Code"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;">
+                        <p th:text = "${serial}">concert</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;">
+        <td td bgcolor="#ee4c50" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            <p style="margin: 10px;">Τηλ. Πληροφοριών 210-2327489</p>
+        </td>
+        <td td bgcolor="#ee4c50" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            <a href="giguniverse@mail.com" style="color: #ffffff; margin:10px">email: giguniverse@mail.com</a>
+        </td>
+        <td td bgcolor="#ee4c50" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            <p style="margin: 10px;">Unipi 2020-2021</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

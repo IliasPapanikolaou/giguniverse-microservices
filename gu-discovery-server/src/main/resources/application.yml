@@ -1,0 +1,13 @@
+# Default port
+server:
+  port: 8761
+
+spring:
+  application:
+    name: gu-discovery-server
+
+# Avoid server register itself as a service:
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false

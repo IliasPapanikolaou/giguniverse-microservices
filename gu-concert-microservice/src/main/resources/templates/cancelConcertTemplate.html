@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">GigUniverse Cancel Concert Email Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        a[x-apple-data-detectors] {color: inherit !important;}
+    </style>
+</head>
+<body style="margin: 0; padding: 0;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+       style="color: #153643; font-family: Arial, sans-serif;">
+    <tr>
+        <td colspan="3" align="center" bgcolor="#70bbd9" style="padding: 20px 10px 20px 10px;">
+            <img src="logo.png" th:src="@{'data:image/png;base64,'+${logo}}" alt="GWigUniverse"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 5px 0 5px 0;">
+                        <p><h3>Λοιπούμαστε, η συναυλία <span th:text = "${concert}">concert</span><br>
+                        που ήταν προγραμματισμένη για τις  <span th:text = "${#dates.format(concertDate)}">concertDate</span><br>
+                        Ακυρώνεται</h3></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><br>Για περισσότερες πληροφορίες επικοινωνίστε μαζί μας στο τηλέφωνο του συναυλιακού χώρου
+                        <span th:text = "${venueName}">venue</span>,<br> Τηλ:
+                        <span th:text = "${venuePhone}">phone</span></td>
+                </tr>
+                <tr>
+                    <td style="padding: 1px 0 1px 0;"><br> ή στα στοιχεία του GigUniverse:<br>
+                    Τηλ. Πληροφοριών 210-2327489<br>
+                    email: <a href="mailto:giguniverse@mail.com">giguniverse@mail.com</a></td>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;">
+        <td td bgcolor="#ee4c50" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            <p style="margin: 10px;">Τηλ. Πληροφοριών 210-2327489</p>
+        </td>
+        <td td bgcolor="#ee4c50" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            <a href="giguniverse@mail.com" style="color: #ffffff; margin:10px">email: giguniverse@mail.com</a>
+        </td>
+        <td td bgcolor="#ee4c50" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            <p style="margin: 10px;">Unipi 2020-2021</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
